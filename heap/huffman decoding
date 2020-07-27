@@ -1,0 +1,55 @@
+// we have encoded string and the huffman tree
+// the tree contains the original text as data and its frequency which is encoded before
+// the idea is simple just traverse the given string and whenever we fall on the leaf node store that value in our ans string
+
+string decode_file(struct MinHeapNode* root, string s)
+{
+//add code here.
+string s1="";
+MinHeapNode *t=root;
+for(auto i:s){
+    // if the curr char is 0 that means we have to go towards the left part of the tree
+    if(i=='0'){
+        t=t->left;
+    }
+    
+    // if it is 1 then toward the right part of the tree
+    else{
+        t=t->right;
+    }
+    
+    // it the current node is leaf node store its value inside the ans string
+    if(!t->right && !t->left){
+        s1+=t->data;
+        t=root;
+    }
+}
+return s1;
+}
+
+
+=================================================================================================================================================================================
+// eg original string = "abc"
+// encoded string = "00011"                    
+//                                             --------------
+//                                             | data="abc" |
+//                                             | freq=3     |
+//                                             --------------
+//                                                  /\
+//                                                 /  \
+//                                           '0'  /    \  '1'
+//                                               /      \
+//                                              /        \
+//                                  -------------        ------------    
+//                                  | data="ab" |        | data="c" | 
+//                                  | freq=2    |        | freq=1   |
+//                                  -------------        ------------
+//                                        /\
+//                                       /  \
+//                                 '0'  /    \  '1'
+//                                     /      \
+//                                    /        \
+//                         ------------        ------------    
+//                         | data="a" |        | data="b" | 
+//                         | freq=1   |        | freq=1   |
+//                         ------------        ------------
