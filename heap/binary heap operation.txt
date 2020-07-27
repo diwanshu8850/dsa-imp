@@ -20,6 +20,8 @@ int MinHeap::extractMin() {
     int x=-1;
     if(heap_size!=0){
         x = harr[0];
+        
+        // replace last element with the first and heapify the tree from first position and also decrease the size by one
         harr[0] = harr[heap_size-1];
         heap_size-=1;
         MinHeapify(0);
@@ -31,6 +33,8 @@ int MinHeap::extractMin() {
 void MinHeap::deleteKey(int i) {
     // Your code here
     if(heap_size>i){
+        
+        // replace this value with int min and then exctrace the min element 
         decreaseKey(i, INT_MIN);
         extractMin();
     }
@@ -40,6 +44,8 @@ void MinHeap::deleteKey(int i) {
 void MinHeap::insertKey(int k) {
     // Your code here
     if(heap_size!=capacity){
+        
+        // insert the element at the last position and then heapify the tree in bottom up manner and incerase its size by one
         decreaseKey(heap_size, k);
         heap_size+=1;
     }
@@ -47,6 +53,8 @@ void MinHeap::insertKey(int k) {
 
 // Decrease Key operation, helps in deleting key from heap
 void MinHeap::decreaseKey(int i, int new_val) {
+
+    // store the value at the given position and keep on checking this element with its parent if it is smaller than parent replace it with the parent
     harr[i] = new_val;
     while (i != 0 && harr[parent(i)] > harr[i]) {
         swap(harr[i], harr[parent(i)]);
@@ -58,6 +66,8 @@ void MinHeap::decreaseKey(int i, int new_val) {
    above codes. Please do not delete this code
    if you are not writing your own MinHeapify */
 void MinHeap::MinHeapify(int i) {
+
+    // to heapify the tree just take the min of parent and both the child and store it on the parent position and do the same for the children
     int l = left(i);
     int r = right(i);
     int smallest = i;
